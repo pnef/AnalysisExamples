@@ -1,30 +1,32 @@
 #!/usr/bin/env ipython
 """ 
 Principle Component Analysis of calorimeter-based forward pileup jet feature space. 
-
 """
-import sys, os
-sys.path.append(os.path.abspath("../"))
-
-import array
-import numpy as np
-
-from sklearn.decomposition import PCA
-from sklearn import preprocessing
-from sklearn.metrics import roc_curve, auc
-
-import matplotlib.pyplot as plt
-
-from base import Analysis
-from base import Histo
-from base import Wait
-
-# Root Stuff
-from rootpy.io import root_open
-import ROOT as R
 
 # Main ------------------------------------------------------------------------
 if __name__ == "__main__":
+    import sys, os
+    sys.path.append(os.path.abspath("../"))
+    
+    import array
+    import numpy as np
+    
+    from sklearn.decomposition import PCA
+    from sklearn import preprocessing
+    from sklearn.metrics import roc_curve, auc
+    
+    import matplotlib.pyplot as plt
+    
+    from base import Analysis
+    from base import Histo
+    from base import Wait
+    
+    # Root Stuff
+    from rootpy.io import root_open
+    import ROOT as R
+
+
+    # -------------------------------------------------
     tfile = "/Users/pascal/Data/ATLAS/ForwardPileup/20141010.14.24_ForwardPileupJets.Zmumu_PowhegPythia8_MC12_COMMON.forward.root"
 
     myfile = root_open(tfile)
