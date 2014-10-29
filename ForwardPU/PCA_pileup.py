@@ -4,19 +4,24 @@ Principle Component Analysis of calorimeter-based forward pileup jet feature spa
 
 """
 import sys, os
+sys.path.append(os.path.abspath("../"))
 
-sys.path.append(os.path.abspath("../base/"))
-import matplotlib.pyplot as plt
-import analysisbase as ana
-from analysisbase import wait
-from rootpy.io import root_open
 import array
+import numpy as np
 
-import ROOT as R
 from sklearn.decomposition import PCA
 from sklearn import preprocessing
 from sklearn.metrics import roc_curve, auc
-import numpy as np
+
+import matplotlib.pyplot as plt
+
+from base import Analysis
+from base import Histo
+from base import Wait
+
+# Root Stuff
+from rootpy.io import root_open
+import ROOT as R
 
 # Main ------------------------------------------------------------------------
 if __name__ == "__main__":
@@ -25,7 +30,7 @@ if __name__ == "__main__":
     myfile = root_open(tfile)
     tree = myfile.EventTree
     
-    analysis = ana.AnalysisBase()
+    analysis = Analysis()
 
     Jpt           = array.array('f',[0])
     Jeta          = array.array('f',[0])

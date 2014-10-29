@@ -6,18 +6,14 @@ AnalysisBase for histogram-based analysis.
 pascal nef, Oct 28th 2014
 *******************************************************
 """
-import sys
-import os
-import re
 import math
 import time
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.ticker import MultipleLocator
 
 
-class AnalysisBase(object):
+class Analysis(object):
     """ Base class for analysis """
     def __init__(self):
         self.H = {}
@@ -110,5 +106,5 @@ class Histo(object):
 
 
 
-def wait():
+def Wait():
     var = raw_input("waiting. hit enter to continue")
