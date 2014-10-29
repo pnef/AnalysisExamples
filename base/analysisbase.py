@@ -1,7 +1,11 @@
 #!/usr/bin/env python
-##################################################################
-# pascal nef                                July 25, 2014        #
-##################################################################
+"""
+*******************************************************
+AnalysisBase for histogram-based analysis.
+
+pascal nef, Oct 28th 2014
+*******************************************************
+"""
 import sys
 import os
 import re
@@ -14,12 +18,14 @@ from matplotlib.ticker import MultipleLocator
 
 
 class AnalysisBase(object):
+    """ Base class for analysis """
     def __init__(self):
         self.H = {}
         self.fig = 0
         self.figID=0
 
     def gethistofromarray(self, ID, data, **kwargs): 
+        """ create np.histogram from array """
 
         try:
             self.H[ID]=Histo( ID)
@@ -31,6 +37,7 @@ class AnalysisBase(object):
             raise
 
     def makelikelihood(self, ID1, ID2, IDnew):
+        """ create likelihood based on signal (ID1) and background (ID2) histos"""
         # check if binning of two histos is identical
         try:
             (self.H[ID1].bins == self.H[ID2].bins).all()
@@ -49,6 +56,11 @@ class AnalysisBase(object):
 
 
     def evaluate_likelihood(self, data, likelihoods):
+        """ evaluate the data for a given (list of) likelihoods
+            -> dimension of the data must correspond to the number of likelihoods
+            -> i.e. if data = [(a1,b1), (a2,b2)], result is [L1(a1)*L2(b1), L1(a2)*L2(b2)
+            -> this is a projective likelihood in case dimension >1
+        """    
         evaluated=[]
         for point in data:
             result = 1
@@ -67,6 +79,7 @@ class AnalysisBase(object):
 
 
     def evaluate_hist_at_point(self, point, ID):
+        """ evaluate a histogram at a certain point along x-axis"""
         if(point < self.H[ID].bins[0] or point >= self.H[ID].bins[-1]):
             return -1
         else:
@@ -75,12 +88,9 @@ class AnalysisBase(object):
     
 
 
-    def NewFig(self):
-        self.fig= plt.figure(num=self.figID, figsize=(4, 4), dpi=200)
-        self.figID +=1
-    
 
 class Histo(object):
+    """ Histogram base class """
     def __init__(self, histname):
         self.histname       = histname
         self.markercolor    = "b"
@@ -96,21 +106,6 @@ class Histo(object):
                 setattr(self, key, kwargs[key])
 
         self.hist ,self.bins = np.histogram(data, **kwargs)
-
-
-    def setp(self, **kwargs):
-        try: 
-            self.markerstyle = kwargs['marker']
-        except:
-            pass
-        try:
-            self.markercolor = kwargs['markercolor']
-        except:
-            pass
-        try:
-            self.linecolor = kwargs['linecolor']
-        except:
-            pass
 
 
 

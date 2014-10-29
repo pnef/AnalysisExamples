@@ -1,11 +1,14 @@
 #!/usr/bin/env ipython
+""" 
+Principle Component Analysis of calorimeter-based forward pileup jet feature space. 
 
+"""
 import sys, os
 
-sys.path.append(os.path.abspath("/Users/pascal/bin/python/plotting/matplotlib"))
+sys.path.append(os.path.abspath("../base/"))
 import matplotlib.pyplot as plt
 import analysisbase as ana
-from pyplotter import wait
+from analysisbase import wait
 from rootpy.io import root_open
 import array
 
